@@ -1,0 +1,27 @@
+service: mongo-backup-${env:S3_NAME}
+
+provider:
+  name: aws
+  stage: production
+  runtime: nodejs10.x
+  region: eu-west-3
+  environment:
+    MONGO_URL: ${env:MONGO_URL}
+    S3_PATH: ${env:S3_PATH}
+    KEEP: ${env:KEEP}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+        - s3:DeleteObject
+        - s3:ListBucket
+      Resource:
+        - arn:aws:s3:::${env:S3_NAME}
+        - arn:aws:s3:::${env:S3_NAME}/*
+
+
+functions:
+  backup:
+    handler: handler.backup
+    events:
+      - schedule: ${env:SCHEDULE}

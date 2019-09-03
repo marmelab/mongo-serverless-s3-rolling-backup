@@ -1,0 +1,15 @@
+{
+  "name": "mongo-serverless-s3-rolling-backup",
+  "version": "1.0.0",
+  "description": "Serverless scheduled rolling backups from mongo to s3",
+  "main": "index.js",
+  "scripts": {
+    "local": "npx serverless invoke local --function backup",
+    "deploy": "npx serverless deploy"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.521.0",
+    "eslint": "^6.3.0",
+    "serverless": "^1.51.0"
+  }
+}
